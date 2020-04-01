@@ -1,12 +1,30 @@
 # MPOWER
-def calculate(x,y,n):
-    get_bin = lambda x: format(x, 'b')
-    bin = get_bin(y)[::-1]
-    print(bin)
-    result = 1
-    for k in range(len(bin)):
-        if bin[k]=='1':
-            result*=x**(2**k)%n
-    print(result%n)
+'''
+7 = 111
+(7**1%n * 7**2%n * 7**4%n)%n
+'''
+def calc(x, y, n):
+    s=x
+    if y == 1:
+        return x%n
+    else:
+        while y >=2:
+            s = s**2 % n
+            y /= 2
+        return s
 
-calculate(54015779, 489100829, 472960975)
+def power(x, y, n):
+    binar = bin(y)[2:][::-1]
+    res = 1
+    for i in range(len(binar)):
+        if binar[i] == '1':
+            res *= calc(x, 2 ** i, n)
+    return res
+
+howmach = int(input())
+results = []
+for i in range(howmach):
+    x, y, n = map(lambda x: int(x), input().split(' '))
+    results.append(power(x, y, n) % n)
+
+[print(res) for res in results]
