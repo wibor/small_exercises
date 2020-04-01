@@ -1,0 +1,12 @@
+# MPOWER
+def calculate(x,y,n):
+    get_bin = lambda x: format(x, 'b')
+    bin = get_bin(y)[::-1]
+    print(bin)
+    result = 1
+    for k in range(len(bin)):
+        if bin[k]=='1':
+            result*=x**(2**k)%n
+    print(result%n)
+
+calculate(54015779, 489100829, 472960975)
